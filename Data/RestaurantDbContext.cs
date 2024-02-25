@@ -16,6 +16,5 @@ namespace RestaurantRaterAPI.Data
         public DbSet<Rating> Ratings { get; set; }
 
     }
-
    
 }
