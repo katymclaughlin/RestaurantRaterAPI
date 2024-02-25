@@ -19,4 +19,27 @@ namespace RestaurantRaterAPI.Data
         [Required, MaxLength(100)] //Attributes can go in the same brackets
         public string Location { get; set; } = string.Empty;
     }
+
+
+//NOTE - Store the associated Ratings; won't be stored as a value, but we will be able to populate it
+    public virtual List<Rating> Ratings { get; set; } = new List<Rating>();
+
+
+//NOTE - Getter only property that returns the average Score value of associated ratings
+    public double AverageRating
+    {
+        get
+        {
+            if (Ratings.Count == 0)
+            {
+                return 0;
+            }
+            double total = 0.0;
+            foreach (Rating rating in Ratings)
+            {
+                total += rating.Score;
+            }
+            return total / Ratings.Count;
+        }
+    }
 }

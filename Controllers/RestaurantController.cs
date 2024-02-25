@@ -42,12 +42,26 @@ namespace RestaurantRaterAPI.Controllers
         return Ok(restaurants);
     }
 
+    //NOTE - Get all Restaurants
+    public async Task<IActionResult> GetAllRestaurants()
+    {
+        var restaurants = await _db.Restaurants.Include(r => r.Ratings).ToListAsync();
+        List<RestaurantListItem> restaurantList = restaurantsdata.Select(r => new RestaurantListItem() {
+            Id = r.Id,
+            Name = r.Name,
+            Location = r.Location,
+            AverageScore = r.AverageScore,
+        }).ToList();
+    
+        return Ok(restaurantList);
+    }
+
     //NOTE - Retrieve a specific Restaurant using the Primary Key, or Id
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetRestaurantById(int id)
     {
         //fetch the Restaurant data from the database
-        Restaurant? restaurant = await _context.Restaurants.FindAsync(id);
+        var restaurant = await _context.Restaurants.Include(r => r.Ratings).FirstOrDefaultAsync(r => r.id = id);
         if (restaurant is null)
         {
         return NotFound();
