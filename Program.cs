@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using RestaurantRaterApi.Data;
+using RestaurantRaterAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
