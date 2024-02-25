@@ -104,6 +104,8 @@ namespace RestaurantRaterAPI.Controllers
     }
     
     //NOTE - Delete endpoint
+    [HttpDelete]
+    [Route("{id}")]
     public async Task<IActionResult> DeleteRestaurant([FromRoute] int id)
     {
         var restaurant = await _context.Restaurants.FindAsync(id);
